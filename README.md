@@ -1,5 +1,5 @@
-[![stars](https://badgen.net/github/stars/17630061068/xrpc?icon=github&color=4ab8a1)](https://github.com/17630061068/xrpc) 
-[![forks](https://badgen.net/github/forks/17630061068/xrpc?icon=github&color=4ab8a1)](https://github.com/17630061068/xrpc) 
+[![stars](https://badgen.net/github/stars/xzq1068/xrpc?icon=github&color=4ab8a1)](https://github.com/xzq1068/xrpc) 
+[![forks](https://badgen.net/github/forks/xzq1068/xrpc?icon=github&color=4ab8a1)](https://github.com/xzq1068/xrpc) 
 
 ### 🚀xrpc
 open source RPC framework
