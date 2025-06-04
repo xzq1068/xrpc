@@ -45,5 +45,5 @@ open source RPC framework
 
 
 ### 使用说明
-[Wiki](https://github.com/17630061068/xrpc/wiki)
+[Wiki](https://github.com/xzq1068/xrpc/wiki)
 
