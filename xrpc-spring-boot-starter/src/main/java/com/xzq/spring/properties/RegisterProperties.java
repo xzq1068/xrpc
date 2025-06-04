@@ -16,6 +16,8 @@ public class RegisterProperties {
 
     private Nacos nacos;
 
+    private Ping ping;
+
 
     @Data
     public static class Redis {
@@ -33,5 +35,12 @@ public class RegisterProperties {
 
         private String userName;
         private String password;
+    }
+
+    @Data
+    public static class Ping{
+
+        private String clusters;
+
     }
 }

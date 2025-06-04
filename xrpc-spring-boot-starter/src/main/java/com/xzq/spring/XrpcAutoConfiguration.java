@@ -121,6 +121,9 @@ public class XrpcAutoConfiguration {
     public Register register() {
         Register register = null;
         try {
+            //优先使用ping 注册中心
+
+
             Class<?> clazz = Class.forName("com.alibaba.nacos.api.naming.NamingService");
             if (ObjectUtil.notNull(clazz) && ObjectUtil.notNull(xrpcProperties.getRegister().getNacos())) {
                 Properties properties = new Properties();
