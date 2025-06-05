@@ -136,6 +136,8 @@ public class XrpcAutoConfiguration {
                 com.xzq.common.service.NamingService namingService = PingFactory.createNamingService(pingConfig);
 
                 register = new PingRegister(namingService);
+
+                return register;
             }
 
 
