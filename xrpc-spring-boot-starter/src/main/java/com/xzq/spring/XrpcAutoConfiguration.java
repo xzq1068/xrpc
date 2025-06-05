@@ -7,9 +7,12 @@ import com.xzq.client.XrpcClientConfig;
 import com.xzq.client.XrpcMessageHandler;
 import com.xzq.client.proxy.ProxyFactory;
 import com.xzq.register.NacosRegister;
+import com.xzq.register.PingRegister;
 import com.xzq.register.RedisRegister;
 import com.xzq.register.Register;
 import com.xzq.register.config.RegisterConfig;
+import com.xzq.registry.client.config.PingConfig;
+import com.xzq.registry.client.factory.PingFactory;
 import com.xzq.server.XrpcServer;
 import com.xzq.server.factory.ProviderFactory;
 import com.xzq.spring.logo.XrpcLogo;
@@ -34,6 +37,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -122,6 +126,17 @@ public class XrpcAutoConfiguration {
         Register register = null;
         try {
             //优先使用ping 注册中心
+            Class<?> pingClazz = Class.forName("com.xzq.common.service.NamingService");
+
+            if (ObjectUtil.notNull(pingClazz) && ObjectUtil.notNull(xrpcProperties.getRegister().getPing())) {
+                RegisterProperties.Ping ping = xrpcProperties.getRegister().getPing();
+
+                PingConfig pingConfig = new PingConfig();
+                pingConfig.setCluster(ping.getClusters());
+                com.xzq.common.service.NamingService namingService = PingFactory.createNamingService(pingConfig);
+
+                register = new PingRegister(namingService);
+            }
 
 
             Class<?> clazz = Class.forName("com.alibaba.nacos.api.naming.NamingService");
@@ -130,14 +145,14 @@ public class XrpcAutoConfiguration {
                 properties.setProperty("serverAddr", xrpcProperties.getRegister().getNacos().getServeraddr());
                 properties.setProperty("namespace", xrpcProperties.getRegister().getNacos().getNamespace());
                 if (ObjectUtil.notNull(xrpcProperties.getRegister().getNacos().getUserName())) {
-                    properties.setProperty("username",xrpcProperties.getRegister().getNacos().getUserName());
+                    properties.setProperty("username", xrpcProperties.getRegister().getNacos().getUserName());
                 }
                 if (ObjectUtil.notNull(xrpcProperties.getRegister().getNacos().getPassword())) {
                     properties.setProperty("password", xrpcProperties.getRegister().getNacos().getPassword());
                 }
                 NamingService namingService = NacosFactory.createNamingService(properties);
                 register = new NacosRegister(namingService);
-            }else{
+            } else {
                 RegisterConfig registerConfig = new RegisterConfig(
                         xrpcProperties.getRegister().getRedis().getHost(),
                         xrpcProperties.getRegister().getRedis().getPort(),

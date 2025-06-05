@@ -30,6 +30,14 @@ public class PingRegister implements Register{
 
     }
 
+
+    public PingRegister() {
+    }
+
+    public PingRegister(NamingService namingService) {
+        this.namingService = namingService;
+    }
+
     @Override
     public void register(ProviderService providerServer) {
         try {
