@@ -18,32 +18,32 @@ public class XrpcProtocolV1 extends XrpcProtocol {
     /**
      * xrpc协议 魔数
      */
-    private static int MAGIC_NUM = 0x63;
+    private static final int MAGIC_NUM = 0x63;
 
     /**
      * xrpc协议 版本
      */
-    private static int VERSION = 1;
+    private static final int VERSION = 1;
 
     /**
      * xrpc 协议默认序列化方案
      */
-    private static int SERIALIZER = Serializer.PROTOBUF;
+    private static final int SERIALIZER = Serializer.PROTOBUF;
 
     /**
      * xrpc协议支持的版本
      */
-    private static Set<Integer> supportVersions = new HashSet<>();
+    private static final Set<Integer> supportVersions = new HashSet<>();
 
     /**
      * xrpc协议支持的序列化方案
      */
-    private static Set<Integer> supportSerializers = new HashSet<>();
+    private static final Set<Integer> supportSerializers = new HashSet<>();
 
     /**
      * xrpc协议支持的消息类型
      */
-    private static Set<Integer> supportMessages = new HashSet<>();
+    private static final Set<Integer> supportMessages = new HashSet<>();
 
     static {
         supportVersions.add(VERSION);
