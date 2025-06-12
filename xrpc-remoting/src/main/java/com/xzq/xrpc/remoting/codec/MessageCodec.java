@@ -9,6 +9,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 消息编解码器
@@ -20,7 +21,7 @@ import java.util.List;
 public class MessageCodec extends ByteToMessageCodec {
 
 
-    private XrpcProtocol xrpcProtocol;
+    private final XrpcProtocol xrpcProtocol;
 
 
     public MessageCodec(XrpcProtocol xrpcProtocol) {
@@ -47,7 +48,13 @@ public class MessageCodec extends ByteToMessageCodec {
             //1字节消息指令类型
             byteBuf.writeByte(message.getMessageType());
 
-            byte[] data = SerializerUtil.match(xrpcProtocol.getSerializer()).serializer(message);
+            Serializer serializer = SerializerUtil.match(xrpcProtocol.getSerializer());
+
+            if (Objects.isNull(serializer)) {
+                return;
+            }
+
+            byte[] data = serializer.serializer(message);
 
             //4字节消息长度
             byteBuf.writeInt(data.length);
@@ -79,7 +86,7 @@ public class MessageCodec extends ByteToMessageCodec {
         Class<? extends Message> message = Message.match(messageType);
 
         //检查当前协议是否支持
-        if (!xrpcProtocol.isSupport(magicNum, version, (int)serializerType, (int)messageType)) {
+        if (!xrpcProtocol.isSupport(magicNum, version, serializerType, messageType)) {
             channelHandlerContext.close();
             return;
         }
@@ -90,6 +97,10 @@ public class MessageCodec extends ByteToMessageCodec {
         byte[] data = new byte[dataLength];
 
         byteBuf.readBytes(data);
+
+        if (Objects.isNull(serializer)) {
+            return;
+        }
 
         Message messageBody = serializer.deserializer(data, message);
 

@@ -11,9 +11,9 @@ public interface Serializer {
     /**
      * jdk,json,protobuf序列化方案
      */
-    int JDK=0;
-    int JSON=1;
-    int PROTOBUF=2;
+    byte JDK=0;
+    byte JSON=1;
+    byte PROTOBUF=2;
 
     /**
      * 序列化

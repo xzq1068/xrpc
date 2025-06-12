@@ -12,13 +12,13 @@ import java.util.Map;
  * @Date 2023/3/9 16:10
  */
 public abstract class Message {
-    public static final int PingMessage = -1;
-    public static final int PongMessage = -2;
+    public static final byte PingMessage = -1;
+    public static final byte PongMessage = -2;
 
-    public static final int XrpcRequestMessage = 1;
-    public static final int XrpcResponseMessage = 2;
+    public static final byte XrpcRequestMessage = 1;
+    public static final byte XrpcResponseMessage = 2;
 
-    private static Map<Integer, Class<? extends Message>> messageClass = new HashMap<>();
+    private static final Map<Byte, Class<? extends Message>> messageClass = new HashMap<>();
 
     static {
         messageClass.put(PingMessage,PingMessage.class);
@@ -27,7 +27,7 @@ public abstract class Message {
         messageClass.put(XrpcResponseMessage, XrpcResponseMessage.class);
     }
 
-    public static Class<? extends Message> match(int messageType) {
+    public static Class<? extends Message> match(byte messageType) {
         return  messageClass.get(messageType);
     }
 

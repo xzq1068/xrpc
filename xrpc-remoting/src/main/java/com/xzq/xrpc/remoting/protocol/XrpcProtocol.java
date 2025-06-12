@@ -34,7 +34,7 @@ public abstract class XrpcProtocol {
      */
     public abstract int getSerializer();
 
-    public abstract boolean isSupport(int magicNum, int version, Integer serialize, Integer clazz);
+    public abstract boolean isSupport(int magicNum, byte version, byte serialize, byte clazz);
 
 
 }

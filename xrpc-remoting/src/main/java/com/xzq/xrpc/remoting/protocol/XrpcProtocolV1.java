@@ -23,27 +23,27 @@ public class XrpcProtocolV1 extends XrpcProtocol {
     /**
      * xrpc协议 版本
      */
-    private static final int VERSION = 1;
+    private static final byte VERSION = 1;
 
     /**
      * xrpc 协议默认序列化方案
      */
-    private static final int SERIALIZER = Serializer.PROTOBUF;
+    private static final byte SERIALIZER = Serializer.PROTOBUF;
 
     /**
      * xrpc协议支持的版本
      */
-    private static final Set<Integer> supportVersions = new HashSet<>();
+    private static final Set<Byte> supportVersions = new HashSet<>();
 
     /**
      * xrpc协议支持的序列化方案
      */
-    private static final Set<Integer> supportSerializers = new HashSet<>();
+    private static final Set<Byte> supportSerializers = new HashSet<>();
 
     /**
      * xrpc协议支持的消息类型
      */
-    private static final Set<Integer> supportMessages = new HashSet<>();
+    private static final Set<Byte> supportMessages = new HashSet<>();
 
     static {
         supportVersions.add(VERSION);
@@ -74,13 +74,13 @@ public class XrpcProtocolV1 extends XrpcProtocol {
     }
 
     @Override
-    public boolean isSupport(int magicNum, int version, Integer serialize, Integer clazz) {
+    public boolean isSupport(int magicNum, byte version, byte serialize, byte clazz) {
 
 
         if (magicNum == MAGIC_NUM &&
-                supportVersions.contains(version) &&
-                serialize != null && supportSerializers.contains(serialize) &&
-                clazz != null && supportMessages.contains(clazz)) {
+                supportVersions.contains(version)
+                 && supportSerializers.contains(serialize)
+                 && supportMessages.contains(clazz)) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
