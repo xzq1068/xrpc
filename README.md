@@ -20,7 +20,7 @@ open source RPC framework
 2. 完成了简易版IOC和DI功能
 3. 可以独立运行
 4. 和springBoot进行了整合
-5. 注册中心整合redis+nacos
+5. 注册中心整合redis+nacos+ping
 6. client和server 使用ping-pong机制+netty[IdleHandler]完成心跳检测功能
 7. 支持jdk,json,protobuf等序列化机制
 8. 定义了Xrpc协议报文,使用LTC（Length-Type-Content）机制 解决TCP半包粘包
